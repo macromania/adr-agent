@@ -2,6 +2,8 @@ import asyncio
 import logging
 import os
 import sys
+import uuid
+from datetime import datetime
 
 import dotenv
 from semantic_kernel import Kernel
@@ -14,6 +16,7 @@ from semantic_kernel.connectors.ai.open_ai.prompt_execution_settings.azure_chat_
 )
 from semantic_kernel.contents.chat_history import ChatHistory
 
+from src.plugins.output.plugin import OutputPlugin
 from src.plugins.well_architected.plugin import WellArchitectedPlugin
 
 SYSTEM_PROMPT = (
@@ -39,6 +42,8 @@ SYSTEM_PROMPT = (
     "To show progress if a section is not started, use ➖"
     "To show progress if a section is in Progress, use 🟡. "
     "Show the references found in the WellArchitectedPlugin for each section. "
+    "Save the progress of each section to a Markdown file using the OutputPlugin by sending the ADR_ID, section name and section content. "
+    "Confirm saved file path to the user as a system info message."
 )
 
 WELCOME_MESSAGE = (
@@ -52,6 +57,12 @@ WELCOME_MESSAGE = (
     "Let's begin with the first question!\n"
     "What is the context of the decision you are making? "
 )
+
+def generate_adr_reference_id():
+    """Generate an ADR reference ID in the format 'adr-<5-char-uuid>-<YYYYMMDD>'"""
+    short_uuid = str(uuid.uuid4())[:5]
+    date_str = datetime.now().strftime("%Y%m%d")
+    return f"adr-{date_str}-{short_uuid}"
 
 def user_input(prompt):
     """Get user input with colored prompt."""
@@ -97,6 +108,8 @@ async def main():
 
     logging.info("Setting up Azure OpenAI Chat Completion...")
 
+    adr_id = generate_adr_reference_id()
+
     # Add Azure OpenAI chat completion
     deployment_name = os.getenv("AZURE_OPEN_AI_DEPLOYMENT_NAME")
     api_key = os.getenv("AZURE_OPEN_AI_API_KEY")
@@ -117,19 +130,27 @@ async def main():
 
     print("Preparing plugins...")
 
-    # Vectorize the PDF
+    # WellArchitectedPlugin
     well_architected_plugin = WellArchitectedPlugin()
     well_architected_plugin.vectorize_pdf()
     kernel.add_plugin(
         well_architected_plugin,
         plugin_name="WellArchitectedPlugin",
     )
+
+    # OutputPlugin
+    output_plugin = OutputPlugin()
+    kernel.add_plugin(
+        output_plugin,
+        plugin_name="OutputPlugin",
+    )    
     
 
     # Create a history of the conversation
     history = ChatHistory()
 
     history.add_developer_message(SYSTEM_PROMPT)
+    history.add_user_message("ADR_ID: " + adr_id)
 
     # Initiate a back-and-forth chat
     userInput = None
