@@ -22,9 +22,24 @@ SYSTEM_PROMPT = (
     "and you will provide suggestions and examples to help them fill in the details. "
     "You will also ensure that the ADR follows the standard format and includes all required sections. "
     "Format the ADR content in Markdown. "
-    "Sections: Context, Current State, Decision Drivers, Considered Options, Decision Outcome, Consequences. "
+    "Sections: Context, Current State, Considered Options, Decision Drivers, Decision Outcome, Consequences. "
     "You need to use Azure Well Architected Framework to ensure the ADR covers all aspects of the framework for non-functional requirements."
     "You need to use Azure Architecture Center to ensure the ADR visits well known patterns and practices."
+    "Decision drivers should be a table comparing the options and provide a score of Yes, No, or Maybe."
+    "Ask necessary questions one by one to the user to fill in the sections. "
+    "Show the progress of the ADR creation process to the user as you go along. "
+)
+
+WELCOME_MESSAGE = (
+    "👋 Welcome! I am your AI assistant for creating Architecture Decision Records (ADRs).\n"
+    "I will guide you step-by-step to ensure your ADR is well-structured and comprehensive, "
+    "following the standard format and best practices from the Azure Well Architected Framework and Azure Architecture Center.\n"
+    "Let's get started! I’ll ask you questions to help fill in each section:\n"
+    "Context, Current State, Decision Drivers, Considered Options, Decision Outcome, and Consequences.\n"
+    "Feel free to ask for suggestions or examples at any time. Type 'exit' to quit.\n"
+
+    "Let's begin with the first question!\n"
+    "What is the context of the decision you are making? "
 )
 
 
@@ -64,6 +79,10 @@ async def main():
     # Initiate a back-and-forth chat
     userInput = None
     while True:
+        # Welcome the user
+        if userInput is None:
+            print("\nAssistant > " + str(WELCOME_MESSAGE))
+
         # Collect user input
         userInput = input("\nUser > ")
 
