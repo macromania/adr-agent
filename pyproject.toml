@@ -9,6 +9,10 @@ dependencies = [
     "semantic-kernel (>=1.31.0,<2.0.0)",
     "python-dotenv (>=1.1.0,<2.0.0)",
     "openai (>=1.79.0,<2.0.0)",
+    "pypdf2 (>=3.0.1,<4.0.0)",
+    "sentence-transformers (>=4.1.0,<5.0.0)",
+    "faiss-cpu (>=1.11.0,<2.0.0)",
+    "hf-xet (>=1.1.2,<2.0.0)",
 ]
 
 [tool.poetry]

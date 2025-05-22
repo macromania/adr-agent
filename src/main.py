@@ -13,6 +13,8 @@ from semantic_kernel.connectors.ai.open_ai.prompt_execution_settings.azure_chat_
 )
 from semantic_kernel.contents.chat_history import ChatHistory
 
+from src.plugins.well_architected.plugin import WellArchitectedPlugin
+
 SYSTEM_PROMPT = (
     "You are an AI assistant for creating Architecture Decision Records (ADRs). "
     "Your task is to help users create ADRs by asking clarifying questions and providing guidance. "
@@ -44,13 +46,16 @@ WELCOME_MESSAGE = (
 
 
 async def main():
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s")
+
+    logging.info("Initializing the kernel...")
     # Initialize the kernel
     kernel = Kernel()
 
     # Load environment variables from .env file
     dotenv.load_dotenv()
 
-    logging.info("Starting the Azure OpenAI Chat Completion example...")
+    logging.info("Setting up Azure OpenAI Chat Completion...")
 
     # Add Azure OpenAI chat completion
     deployment_name = os.getenv("AZURE_OPEN_AI_DEPLOYMENT_NAME")
@@ -58,7 +63,6 @@ async def main():
     endpoint = os.getenv("AZURE_OPEN_AI_ENDPOINT")
     api_version = os.getenv("AZURE_OPEN_AI_API_VERSION")
 
-    logging.info("Setting up Azure OpenAI chat completion...")
     chat_completion = AzureChatCompletion(
         deployment_name=deployment_name,
         api_key=api_key,
@@ -67,9 +71,16 @@ async def main():
     )
     kernel.add_service(chat_completion)
 
-    # Enable planning
+    logging.info("Enabling function choice behavior...")
     execution_settings = AzureChatPromptExecutionSettings()
     execution_settings.function_choice_behavior = FunctionChoiceBehavior.Auto()
+
+    print("Preparing plugins...")
+
+    # Vectorize the PDF
+    plugin = WellArchitectedPlugin()
+    plugin.vectorize_pdf()
+    
 
     # Create a history of the conversation
     history = ChatHistory()
