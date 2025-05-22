@@ -1,0 +1,28 @@
+[project]
+name = "adr-agent"
+version = "0.1.0"
+description = ""
+authors = [{ name = "Your Name", email = "you@example.com" }]
+readme = "README.md"
+requires-python = ">=3.11,<4.0.0"
+dependencies = [
+    "semantic-kernel (>=1.31.0,<2.0.0)",
+    "python-dotenv (>=1.1.0,<2.0.0)",
+    "openai (>=1.79.0,<2.0.0)",
+]
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.10"
+
+[tool.ruff]
+line-length = 240
+target-version = "py311"
+show-fixes = true
+src = ["src/"]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

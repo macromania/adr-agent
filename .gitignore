@@ -1,0 +1,79 @@
+# Node/Next.js
+node_modules/
+.next/
+out/
+.env*
+.env.*
+!.env.sample
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+.venv/
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Ruff, pytest, isort
+.cache/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# macOS
+.DS_Store
+
+# Bicep/Infra
+*.bicep.params.json
+*.bicepparam
+*.bicep.parameters.json
+infra/.azdo/
+infra/.terraform/
+infra/.bicep/
+
+# Logs
+logs/
+*.log
+
+# Misc
+*.swp
+*.swo
+
+# Ignore test output
+/tests/__pycache__/
+/tests/.pytest_cache/
+/tests/.mypy_cache/
+/tests/.ruff_cache/
+/tests/.coverage
+/tests/htmlcov/
+
+# Ignore local devcontainer/docker files
+.dockerignore
+.devcontainerignore
+
+# Ignore scripts output
+/scripts/*.log
+/scripts/*.tmp
+
+secrets.txt
+.azure

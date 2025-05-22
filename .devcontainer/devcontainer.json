@@ -1,0 +1,54 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "adr-agent",
+	"dockerFile": "Dockerfile",
+	"postCreateCommand": ".devcontainer/post-create.sh",
+	"workspaceFolder": "/workspaces/adr-agent",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"charliermarsh.ruff",
+				"ms-azuretools.vscode-docker",
+				"ms-azuretools.vscode-azurefunctions",
+				"ms-azuretools.vscode-bicep",
+				"ms-azuretools.azure-dev",
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode",
+				"humao.rest-client",
+				"mhutchie.git-graph",
+				"GitHub.copilot-chat",
+				"GitHub.vscode-github-actions",
+				"njpwerner.autodocstring",
+				"ryanluker.vscode-coverage-gutters",
+				"isort.isort",
+				"magicstack.magicpython",
+				"davidanson.vscode-markdownlint",
+				"pkief.material-icon-theme",
+				"tamasfe.even-better-toml"
+			],
+			"settings": {
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"python.linting.enabled": true,
+				"python.linting.flake8Enabled": false,
+				"python.linting.mypyEnabled": false,
+				"python.linting.pylintEnabled": false,
+				"python.linting.banditEnabled": false,
+				"python.formatting.provider": "none",
+				"editor.formatOnSave": true,
+				"editor.codeActionsOnSave": {
+					"source.fixAll.ruff": "always",
+					"source.organizeImports": "always"
+				},
+				"[python]": {
+					"editor.defaultFormatter": "charliermarsh.ruff"
+				}
+			}
+		}
+	},
+	"containerEnv": {
+		"PYTHONPATH": "/workspaces/adr-agent"
+	}
+}
