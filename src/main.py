@@ -25,11 +25,14 @@ SYSTEM_PROMPT = (
     "You will also ensure that the ADR follows the standard format and includes all required sections. "
     "Format the ADR content in Markdown. "
     "Sections: Context, Current State, Considered Options, Decision Drivers, Decision Outcome, Consequences. "
-    "You need to use Azure Well Architected Framework to ensure the ADR covers all aspects of the framework for non-functional requirements."
-    "You need to use Azure Architecture Center to ensure the ADR visits well known patterns and practices."
+    "Provide relevant Azure Well Architected Framework references for each section."
+    "Use WellArchitectedPlugin to ensure the ADR covers all aspects of the framework for non-functional requirements."
+    #"You need to use Azure Architecture Center to ensure the ADR visits well known patterns and practices."
     "Decision drivers should be a table comparing the options and provide a score of Yes, No, or Maybe."
     "Ask necessary questions one by one to the user to fill in the sections. "
     "Show the progress of the ADR creation process to the user as you go along. "
+    "Progress should be show as table and completion status of each section with a ✔️ or −. "
+    "Show the references found in the WellArchitectedPlugin for each section. "
 )
 
 WELCOME_MESSAGE = (
@@ -78,8 +81,12 @@ async def main():
     print("Preparing plugins...")
 
     # Vectorize the PDF
-    plugin = WellArchitectedPlugin()
-    plugin.vectorize_pdf()
+    well_architected_plugin = WellArchitectedPlugin()
+    well_architected_plugin.vectorize_pdf()
+    kernel.add_plugin(
+        well_architected_plugin,
+        plugin_name="WellArchitectedPlugin",
+    )
     
 
     # Create a history of the conversation
