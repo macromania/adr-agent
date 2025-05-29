@@ -14,13 +14,15 @@ Couple of prompts are provided under `/prompts` directory. These prompts are des
 2. Choose a model that has reasoning and planning capabilities, such as `gpt-4o` or `Cloude Sonnet 4`.
 3. When the prompt is in the context, start the chat with `Edit` mode with a simple command like `Use the instructions and generate me the document. Ask clarifying questions where you see fit`.
 
-![Example](./images/environment-strategy-example.png)
+![prompt-example](./images/environment-strategy-example.png)
 
 ## Agent
 
 When chatting with GitHub Copilot, you may need extra help for grounding the draft with Azure Well-Architected Framework and other Azure best practices. The agent provided in this repo is designed to assist you in this process. The agent indexes latest Azure Well-Architected Framework PDF downloaded in the source code as FAISS vector store for simplicity. If needed, there is a PII Detection and Redaction tool to help you redact sensitive information from the ADR before sharing it with others. Output plugins is also used to save your progress in `/outputs` directory as a markdown file for each section. This can be useful if you'd like to reuse or socilaize certain sections of the ADR with your team or stakeholders.
 
 Agent is instructed to track the progress of each ADR section and visualises the progress with a simple table in the output. When all sections are completed, the agent will generate a final ADR markdown file with all sections combined. 
+
+![agent-example](./images/agent-example.png)
 
 ### Agent Usage
 
