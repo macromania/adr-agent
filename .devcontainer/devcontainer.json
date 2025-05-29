@@ -5,6 +5,11 @@
 	"dockerFile": "Dockerfile",
 	"postCreateCommand": ".devcontainer/post-create.sh",
 	"workspaceFolder": "/workspaces/adr-agent",
+	"features": {
+		"ghcr.io/devcontainers/features/azure-cli:1": {
+			"version": "latest"
+		}
+	},
 	"customizations": {
 		"vscode": {
 			"extensions": [
