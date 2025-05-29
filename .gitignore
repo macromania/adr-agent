@@ -77,4 +77,4 @@ logs/
 
 secrets.txt
 .azure
-outputs
+/outputs
