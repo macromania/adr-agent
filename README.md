@@ -29,3 +29,7 @@ Agent is instructed to track the progress of each ADR section and visualises the
 1. Create a new `.env` file in the root directory and copy the contents of `.env.example` into it. You can use `/scripts/create-env.sh` to create a new Azure Open AI deployment and set the `.env` file.
 2. Run `python src/main.py` to start the agent.
 3. Until you interrupt the process with Ctrl+C or type `exit`, the agent will be running and ready to assist you with ADR creation.
+
+## Contributing
+
+If you have suggestions for improving the prompts or the agent, please feel free to open an issue or submit a pull request. Your contributions are welcome!
